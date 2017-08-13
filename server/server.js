@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.post('/webhooks', (req, res) => {
     if (req.body.operation === 'play') {
         console.log(req.body);
+        io.emit('playSound');
     }
 });
 
