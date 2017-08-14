@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.json());
 
 app.post('/webhooks', (req, res) => {
-    fs.writeFileSync(`${publicPath}/data.json`, JSON.stringify(req));
+    fs.writeFileSync(`${publicPath}/data.json`, JSON.stringify(req.body));
     if (req.body.operation === 'play') {
         console.log(req.body);
         io.emit('playSound');
