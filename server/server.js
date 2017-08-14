@@ -10,16 +10,16 @@ const publicPath = path.join(__dirname, '../public');
 var app = express();
 app.use(bodyParser.json());
 
+var server = http.createServer(app);
+var io = socketIO(server);
+
+app.use(express.static(publicPath));
+
 app.post('/webhooks', (req, res) => {
     if (req.body.commits.length > 0) {
         io.emit('playSound');
     }
 });
-
-var server = http.createServer(app);
-var io = socketIO(server);
-
-app.use(express.static(publicPath));
 
 server.listen(port, () => {
     console.log(`Server is up on port: ${port}`);
